@@ -18,7 +18,8 @@ router.get('/search-result', function (req, res, next) {
             if (err) {
                 next(err)
             }
-            res.send(result)
+            // UPDATED LINE 
+            res.render("list.ejs", {availableBooks: result})
          });
     });
 
