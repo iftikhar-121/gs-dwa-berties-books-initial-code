@@ -23,5 +23,29 @@ router.get('/search-result', function (req, res, next) {
          });
     });
 
+// Route to display the 'add book' form
+router.get('/addbook', function(req, res, next) {
+    // We add shopData here so addbook.ejs can use it
+    let shopData = { shopName: "Bertie's Books" }; 
+    res.render('addbook.ejs', { shopData: shopData });
+});
+
+// Route to handle the 'add book' form submission 
+router.post('/bookadded', function (req, res, next) {
+    // saving data in database
+    let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)";
+    // execute sql query
+    let newrecord = [req.body.name, req.body.price];
+    
+    db.query(sqlquery, newrecord, (err, result) => {
+        if (err) {
+            next(err);
+        } else {
+            res.send(' This book is added to database, name: ' + req.body.name + ' price ' + req.body.price);
+        }
+    });
+});
+
+
 // Export the router object so index.js can access it
 module.exports = router
