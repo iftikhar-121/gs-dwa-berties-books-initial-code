@@ -23,6 +23,22 @@ router.get('/search-result', function (req, res, next) {
          });
     });
 
+
+router.get('/bargainbooks', function(req, res, next) {
+    let sqlquery = "SELECT name, price FROM books WHERE price < 20";
+    
+    // execute sql query
+    db.query(sqlquery, (err, result) => {
+        if (err) {
+            next(err);
+        }
+        // We can re-use the list.ejs template to show the results!
+        res.render("list.ejs", {availableBooks: result});
+    });
+});
+
+
+
 // Route to display the 'add book' form
 router.get('/addbook', function(req, res, next) {
     // We add shopData here so addbook.ejs can use it
