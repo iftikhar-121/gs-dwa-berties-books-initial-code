@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 
-// --- NEW SEARCH ROUTES ---
 // This route just displays the search page for the first time
 router.get('/search', function(req, res, next) {
     // Render search.ejs, passing default values
